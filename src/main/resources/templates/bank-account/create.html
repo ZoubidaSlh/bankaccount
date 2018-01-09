@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Nouveau Compte</title>
+</head>
+
+<body>
+	<div data-layout-fragment="content">
+		<div class="page-title">
+			<div class="title_left">
+				<h3>Nouveau Compte</h3>
+			</div>
+
+			<div class="title_right">
+				<div class="col-md-12 form-group top_search">
+					<a href="/bank-account" type="button"
+						class="btn btn-round btn-primary pull-right"> <i
+						class="fa fa-arrow-left"></i> Retour
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<!-- form input mask -->
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Information Compte</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<form data-th-action="@{/bank-account/create}" method="post"
+							class="form-horizontal form-label-left">
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Client</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<select class="form-control" name="client">
+										<option data-th-each="c:${listClients}" data-th-value="${c.code}" data-th-text="${c.nom}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12"
+									for="first-name">Code du compte</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="codeCompte" name="codeCompte"
+										class="form-control col-md-7 col-xs-12">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12"
+									for="solde">Solde</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="solde" name="solde"
+										class="form-control col-md-7 col-xs-12">
+								</div>
+							</div>
+							<div class="form-group">
+									<input type="hidden" name="typeCompte" id="typeCompte" value="CC"> 
+								<label class="control-label col-md-3 col-sm-3 col-xs-12">Type</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="btn-group" data-toggle="buttons">
+										<label class="btn btn-default compte-type-switcher active"
+											data-type="CC"> 
+											<input type="radio" name="options"
+											id="option1" autocomplete="off" checked> Compte Courant
+										</label> 
+										<label class="btn btn-default compte-type-switcher"
+											data-type="CE"> 
+											<input type="radio" name="options"
+											id="option2" autocomplete="off"> Compte Epargne
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group " id="decouvert_section">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12"
+									for="decouvert">Découvert</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="decouvert" name="decouvert"
+										class="form-control col-md-7 col-xs-12">
+								</div>
+							</div>
+							<div class="form-group hidden" id="taux_section">
+								<label class="control-label col-md-3 col-sm-3 col-xs-12"
+									for="taux">Taux</label>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" id="taux" name="taux"
+										class="form-control col-md-7 col-xs-12">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+		                        <div class="col-md-6 col-sm-6 col-xs-12">
+		                        	<div class="pull-right">
+								   	<a class="btn btn-primary" href="/bank-account">
+								   		<i class="fa fa-close"></i>
+								   		Annuler
+								   	</a>
+		                          	<button type="submit" class="btn btn-success" >
+		                          		<i class="fa fa-check"></i>
+		                          		Valider
+		                          	</button>
+		                        	</div>
+		                        </div>
+		                      </div>
+						</form>
+					</div>
+				</div>
+				<!-- /form input mask -->
+			</div>
+		</div>
+		<div class="clearfix"></div>
+
+	</div>
+</body>
+</html>

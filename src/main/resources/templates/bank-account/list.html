@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Liste des clients</title>
+</head>
+
+<body>
+<div data-layout-fragment="content">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Gestion des comptes</h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-12 form-group top_search">
+                <a href="/bank-account/create" type="button" class="btn btn-round btn-primary pull-right">
+					<i class="fa fa-plus-circle"></i>
+					Nouveau Compte
+				</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+		<div class="col-md-6 col-sm-6 col-xs-12">
+		     <div class="x_panel">
+		       <div class="x_title">
+		         <h2>Compte Courant</h2>
+		         <div class="clearfix"></div>
+		       </div>
+		       <div class="x_content">
+		
+		         <table class="table table-striped">
+		           <thead>
+		             <tr>
+		               <th>Nº Compte</th>
+		               <th>Client</th>
+		               <th>Date Création</th>
+		               <th>Solde</th>
+		               <th>Découvert</th>
+		             </tr>
+		           </thead>
+		           <tbody>
+		             <tr data-th-each="c:${listComptesCourant}" data-th-if="${c.class.simpleName == 'CompteCourant'}" >
+						<td data-th-text="${c.codeCompte}"></td>
+						<td data-th-text="${c.client.nom}"></td>
+						<td data-th-text="${c.dateCreation}"></td>
+						<td data-th-text="${c.solde}"></td>
+						<td data-th-text="${c.decouvert}"></td>
+					</tr>
+		         </table>
+		
+		       </div>
+		     </div>
+	   </div>
+	   
+		<div class="col-md-6 col-sm-6 col-xs-12">
+		     <div class="x_panel">
+		       <div class="x_title">
+		         <h2>Compte Epargne</h2>
+		         <div class="clearfix"></div>
+		       </div>
+		       <div class="x_content">
+		
+		         <table class="table table-striped">
+		           <thead>
+		             <tr>
+		               <th>Nº Compte</th>
+		               <th>Client</th>
+		               <th>Date Création</th>
+		               <th>Solde</th>
+		               <th>Taux</th>
+		             </tr>
+		           </thead>
+		           <tbody>
+		             <tr data-th-each="c:${listComptesEpargne} " data-th-if="${c.class.simpleName == 'CompteEpargne'}" >
+						<td data-th-text="${c.codeCompte}"></td>
+						<td data-th-text="${c.client.nom}"></td>
+						<td data-th-text="${c.dateCreation}"></td>
+						<td data-th-text="${c.solde}"></td>
+						<td data-th-text="${c.taux}"></td>
+					</tr>
+		           </tbody>
+		         </table>
+		
+		       </div>
+		     </div>
+   		</div>
+ 	
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="template1">
+<head>
+<meta charset="UTF-8"/>
+<title>Clients</title>
+</head>
+<body>
+	<div class="container" layout:fragment="content">
+		<div class="panel panel-default">
+			<div class="panel-heading">Confirmation Client</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label>Nom:</label>
+					<label th:text="${client.nom}"></label>
+				</div>
+				<div class="form-group">
+					<label>Email:</label>
+					<label th:text="${client.email}"></label>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

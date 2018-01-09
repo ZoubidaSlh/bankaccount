@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Gestion des utilisateur</title>
+</head>
+
+<body>
+<div data-layout-fragment="content">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Gestion des utilisateur</h3>
+            </div>
+        </div>
+
+	
+	    <div class="clearfix"></div>
+	
+	    <div class="row">
+	          <!-- form input mask -->
+	          <div class="col-md-12 col-sm-12 col-xs-12">
+	            <div class="x_panel">
+	              <div class="x_title">
+	                <h2 id="sectionTitle">Nouveau Utilisateur</h2>
+	                <ul class="nav navbar-right panel_toolbox">
+	                  <li class="pull-right">
+	                  	<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                  </li>
+	                </ul>
+	                <div class="clearfix"></div>
+	              </div>
+	              <div class="x_content">
+	                <form id="userAddEditForm" class="form-horizontal form-label-left" data-th-action="@{/users/createEdit}" method="post">
+	                  <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+	                    <input type="text" class="form-control has-feedback-left" id="username" placeholder="Nom de l'utilisateur" name="username" required>
+	                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+	                  </div>
+					
+					<div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+	                    <input type="password" class="form-control has-feedback-left" id="password" placeholder="Mot de passe" name="password" required>
+	                    <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+	                  </div>
+	
+	                  <div class="col-md-4 col-sm-4 col-xs-12 form-group checkbox-group  required">
+	                    <div class="checkbox">
+                            <label>
+                              <input type="checkbox" class="flat" name="roles" value="ADMIN"> ADMIN
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" class="flat" name="roles" value="USER"> USER
+                            </label>
+                          </div>
+	                  </div>
+
+	                  <div class="form-group">
+	                    <div class="col-md-9 ">
+	                    		<div id="err-msg" class="alert pull-right hidden" style="background: #ffe8e8;color: #ea5454;">Veuillez choisir un role svp.</div>
+	                    </div>
+	                    <div class="col-md-3">
+	                    	<div class="pull-right">
+						   	<button class="btn btn-primary" type="reset" onclick="resetClientFrom()" title="Réinitialier">
+						   		<i class="fa fa-close"></i>
+						   		Annuler
+						   	</button>
+	                      	<button type="submit" class="btn btn-success submit-user" >
+	                      		<i class="fa fa-check"></i>
+	                      		Valider
+	                      	</button>
+	                    	</div>
+	                    </div>
+	                  </div>
+	
+	                </form>
+	              </div>
+	            </div>
+	          <!-- /form input mask -->
+	    </div>
+	    </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Liste Utilisateurs</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table id="datatable"
+							class="table table-striped table-bordered dataTable no-footer"
+							role="grid" aria-describedby="datatable_info">
+							<thead>
+								<tr role="row">
+									<th>Nom</th>
+									<th>Active</th>
+									<th>Roles</th>
+									<th class="actions"></th>
+								</tr>
+							</thead>
+						
+							<tbody>
+								<tr data-th-each="c:${listUsers}" data-th-id="'user__${c.id}__'">
+									<td data-th-text="${c.username}"></td>
+									<td>
+										<div th:switch="${c.active}"> 
+										  <p th:case="true">Oui</p>
+										  <p th:case="*">Non</p> 
+										</div>
+									</td>
+									<td>
+										<ul>
+											<li data-th-each="role:${c.roles}" data-th-text="${role.role}"></li>
+										</ul>
+									</td>
+									<td class="actions">
+										<a onclick="return confirm('Etes vous Sure?')"
+											data-th-href="@{/users/delete(id=${c.id})}" title="Supprimer">
+											<i class="fa fa-trash"></i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+</div>
+</body>
+</html>

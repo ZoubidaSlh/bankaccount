@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}">
+<head>
+<title>Liste des clients</title>
+</head>
+
+<body>
+<div data-layout-fragment="content">
+        <div class="page-title">
+           <div class="title_left">
+               <h3>Consultation Comptes</h3>
+           </div>
+           <div class="title_right">
+               <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+               	<form th:action="@{/bank-account/operations}" method="get">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Écrire num. compte" name="codeCompte" th:value="${codeCompte}"> 
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit" style="background-color: #e6e6e6;">OK</button>
+                    </span>
+                  </div>
+                 </form>
+               </div>
+             </div>
+    		</div>
+        
+        <div class="clearfix"></div>
+ 
+        <div class="row" th:if="${compte}">
+           <div class="col-md-6">
+             <div class="x_panel">
+               <div class="x_title">
+                 <h2>Informations sur le compte</h2>
+                 <ul class="nav navbar-right panel_toolbox">
+                   <li class="pull-right">
+                   	<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   </li>
+                 </ul>
+                 <div class="clearfix"></div>
+               </div>
+               <div class="x_content">
+              		<dl class="dl-horizontal account-details">
+              			<dt>Client :</dt>
+              			<dd th:text="${compte.client.nom}"></dd>
+              			<dt>Code :</dt>
+              			<dd th:text="${compte.codeCompte}"></dd>
+              			<dt>Solde :</dt>
+              			<dd th:text="${#numbers.formatDecimal(compte.solde,3,'WHITESPACE',2,'COMMA')}"></dd>
+              			<dt>Date Création :</dt>
+              			<dd th:text="${#calendars.format(compte.dateCreation,'dd/MM/yyyy')}"></dd>
+              			<dt>Type du compte :</dt>
+              			<dd th:text="${compte.class.simpleName}"></dd>
+              			<dt th:if="${compte.class.simpleName=='CompteCourant'}">Decouvert :</dt>
+              			<dd th:if="${compte.class.simpleName=='CompteCourant'}" th:text="${#numbers.formatDecimal(compte.decouvert,3,'WHITESPACE',2,'COMMA')}"></dd>
+              			<dt th:if="${compte.class.simpleName=='CompteEpargne'}">Taux :</dt>
+              			<dd th:if="${compte.class.simpleName=='CompteEpargne'}" th:text="${#numbers.formatDecimal(compte.taux,3,'WHITESPACE',2,'COMMA')}"></dd>
+              		</dl>
+               </div>
+             </div>
+      		</div>
+       		
+           <div class="col-md-6">
+             <div class="x_panel">
+               <div class="x_title">
+                 <h2>Opération sur le compte</h2>
+                 <ul class="nav navbar-right panel_toolbox">
+                   <li class="pull-right">
+                   	<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   </li>
+                 </ul>
+                 <div class="clearfix"></div>
+               </div>
+               <div class="x_content">
+               		<form data-th-action="@{/bank-account/saveOperation}" method="post" class="form-horizontal form-label-left">
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">Compte</label>
+							<label class="control-label col-md-3" th:text="${codeCompte}" style="text-decoration:underline">
+							</label>
+							<input type="hidden" name="codeCompte" th:value="${codeCompte}" />
+						</div>
+						<div class="form-group">
+							<input type="hidden" name="typeOperation" id="typeOperation" value="versement"> 
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">Opération</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-default operation-type-switcher active" data-type="versement"> 
+										<input type="radio" name="operation" autocomplete="off"> Versement
+									</label>
+									<label class="btn btn-default operation-type-switcher" data-type="retrait"> 
+										<input type="radio" name="operation" autocomplete="off"> Retrait
+									</label>
+									<label class="btn btn-default operation-type-switcher" data-type="virement"> 
+										<input type="radio" name="operation" autocomplete="off"> Virement
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">Montant</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="montant" name="montant" class="form-control col-md-7 col-xs-12">
+							</div>
+						</div>
+						<div class="form-group hidden" id="toAccount">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">Vers</label>
+							<div class="col-md-6 col-sm-6 col-xs-12">
+								<input type="text" id="codeCompte2" name="codeCompte2" class="form-control col-md-7 col-xs-12" placeholder="Code compte">
+							</div>
+						</div>
+						<div class="text-danger"
+							th:text="${#httpServletRequest.getParameter('error')}"></div>
+							
+						<div class="form-group">
+							<div class="control-label col-md-3 col-sm-3 col-xs-12"></div>
+	                        <div class="col-md-6 col-sm-6 col-xs-12">
+	                        	<div class="pull-right">
+	                          	<button type="submit" class="btn btn-success" >
+	                          		<i class="fa fa-check"></i>
+	                          		Valider
+	                          	</button>
+	                        	</div>
+	                        </div>
+	                      </div>
+					</form>
+               </div>
+              </div>
+             </div>
+        </div>
+
+
+        <div class="row" th:if="${compte}">
+           <div class="col-md-12">
+             <div class="x_panel">
+               <div class="x_title">
+                 <h2>Liste des opérations</h2>
+                 <ul class="nav navbar-right panel_toolbox">
+                   <li class="pull-right">
+                   	<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                   </li>
+                 </ul>
+                 <div class="clearfix"></div>
+               </div>
+               <div class="x_content">
+               		<table class="table table-striped">
+						<tr>
+							<th>Num</th>
+							<th>Type</th>
+							<th>Date</th>
+							<th>Montant</th>
+						</tr>
+						<tr th:each="o:${listOperations}">
+							<td th:text="${o.numero}"></td>
+							<td th:text="${o.class.simpleName}"></td>
+							<td th:text="${#calendars.format(o.dateOperation,'dd/MM/yyyy HH:mm:ss')}"></td>
+							<td data-th-text="${#numbers.formatDecimal(o.montant,3,'WHITESPACE',2,'COMMA')}"></td>
+						</tr>
+
+					</table>
+					<div class="container">
+						<ul class="nav nav-pills">
+							<li th:each="p,status:${pages}"><a
+								th:href="@{/bank-account/operations(codeCompte=${codeCompte},page=${status.index})}"
+								th:text="${status.index}"></a></li>
+						</ul>
+					</div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+	<div class="row" th:if="${compte == null}">
+       <div class="col-md-12 col-sm-12 col-xs-12">
+         <div class="x_panel">
+           <div class="x_title">
+             <h2>Aucun compte trouvé</h2>
+             <div class="clearfix"></div>
+           </div>
+           <div class="x_content">
+               Veuillez chercher à nouveau en saisissant un <b>Code Compte</b> dans la bare de recherche
+           </div>
+         </div>
+       </div>
+     </div>
+ 
+</div>
+</body>
+</html>

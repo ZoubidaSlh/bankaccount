@@ -1,0 +1,49 @@
+th.actions, td.actions {
+	width: 50px;
+}
+
+td.actions a {
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+table{
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	table-layout: fixed; 
+	word-wrap:break-word;
+}
+
+.fa-14 {
+	font-size: 14px !important;
+}
+
+.btn-default.active {
+	color: white !important;
+	background-color: #337ab7 !important;
+}
+.img-circle.client-pic {
+	width: 20%;
+    background: #fff;
+    z-index: 1000;
+    position: inherit;
+    border: 1px solid rgba(52,73,94,0.44);
+    padding: 4px;
+}
+
+/*
+ * Bank Account :: Operations
+ */
+dl.dl-horizontal.account-details {
+    margin-bottom: 6px;
+}
+
+dl.dl-horizontal dt {
+    padding-top: 10px;
+}
+
+dl.dl-horizontal dd {
+    padding-top: 10px;
+}
